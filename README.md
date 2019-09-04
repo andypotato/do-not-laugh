@@ -1,5 +1,5 @@
 # Do not laugh
-A simple AI game experiment which shows how to integrate TensorFlow.js based [face-api.js](https://github.com/justadudewhohacks/face-api.js "face-api.js") inside a Vue.js / Electron application. You can read the detailed story in the related development article on Medium.
+A simple AI game experiment which shows how to integrate TensorFlow.js based [face-api.js](https://github.com/justadudewhohacks/face-api.js "face-api.js") inside a Vue.js / Electron application. You can read the full story in the [related development article on Medium](https://medium.com/@andreas.schallwig/do-not-laugh-a-simple-ai-powered-game-3e22ad0f8166?sk=d57f3cdaf45188a24110a02c48a5cbaa "Medium article").
 
 
 ## How to run
