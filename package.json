@@ -20,7 +20,8 @@
     "reset-css": "^4.0.1",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue-youtube-embed": "^2.2.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

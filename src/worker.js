@@ -23,7 +23,7 @@ faceapi.env.monkeyPatch({
   createImageElement: () => document.createElement('img')
 });
 
-let loadNet = async function() {
+let loadNet = async () => {
 
   let detectionNet = faceapi.nets.ssdMobilenetv1;
   await detectionNet.load('/data/weights');
@@ -78,7 +78,7 @@ let detectExpressions = async () => {
     }
 
     if(happiness > 0.7) {
-      onExpression('laugh');
+      onExpression('happy');
     } else if(anger > 0.7) {
       onExpression('angry');
     }

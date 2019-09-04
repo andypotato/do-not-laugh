@@ -1,14 +1,4 @@
 module.exports = {
-  css: {
-    loaderOptions: {
-      sass: {
-        data: `
-          @import "@/sass/_variables.scss";
-          @import "@/sass/_mixins.scss";
-        `
-      }
-    }
-  },
   pages: {
     index: {
       entry: 'src/main.js', //entry for the public page

@@ -10,7 +10,7 @@ const { ipcMain } = require('electron');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-// Keep a global reference of the window object, if you don't, the window will
+// Keep a global reference of the window objects, if you don't, windows will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let workerWin;
@@ -19,9 +19,15 @@ let workerWin;
 let createdAppProtocol = false;
 
 // Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true, corsEnabled: true, supportFetchAPI: true } }
-])
+protocol.registerSchemesAsPrivileged([{
+  scheme: 'app',
+  privileges: {
+    secure: true,
+    standard: true,
+    corsEnabled: true,
+    supportFetchAPI: true
+  }
+}]);
 
 function createWindow () {
 
