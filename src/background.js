@@ -1,12 +1,10 @@
 'use strict'
 
-import { app, protocol, globalShortcut, BrowserWindow } from 'electron'
+import { app, protocol, globalShortcut, BrowserWindow, ipcMain } from 'electron'
 import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib';
-
-const { ipcMain } = require('electron');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
