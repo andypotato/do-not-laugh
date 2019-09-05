@@ -24,6 +24,12 @@ module.exports = {
       builderOptions: {
         productName: 'Do not laugh',
         appId: 'xyz.andypotato.demo.donotlaugh',
+        linux: {
+          target: {
+            target: 'appimage',
+            arch: ['armv7l']
+          }
+        }
       }
     }
   }
