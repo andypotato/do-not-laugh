@@ -1,6 +1,6 @@
 {
   "name": "do-not-laugh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -21,7 +21,11 @@
     "reset-css": "^4.0.1",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
-    "vue-router": "^3.1.3"
+    "vue-router": "^3.1.3",
+    "@tensorflow/tfjs-core": "1.2.9"
+  },
+  "resolutions": {
+    "tfjs-image-recognition-base/@tensorflow/tfjs-core": "<=1.2.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

@@ -1,6 +1,8 @@
 'use strict'
 
-import { app, protocol, globalShortcut, BrowserWindow, ipcMain } from 'electron'
+import {
+  app, protocol, globalShortcut, BrowserWindow, systemPreferences, ipcMain
+} from 'electron';
 import {
   createProtocol,
   installVueDevtools
@@ -41,11 +43,15 @@ function createWindow () {
     }
   });
 
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-  } else {
-    win.loadURL('app://./index.html');
-  }
+  // @see https://github.com/electron/electron/issues/19307
+  systemPreferences.askForMediaAccess('camera').then((isAllowed) => {
+    if(process.env.WEBPACK_DEV_SERVER_URL) {
+      win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    } else {
+      createProtocol('app');
+      win.loadURL('app://./index.html');
+    }
+  });
 
   win.on('closed', () => {
     // closing the main (visible) window should quit the App
@@ -61,11 +67,13 @@ function createWorker(devPath, prodPath) {
     webPreferences: { nodeIntegration: true }
   });
 
-  if(process.env.WEBPACK_DEV_SERVER_URL) {
-    workerWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL + devPath);
-  } else {
-    workerWin.loadURL(`app://./${prodPath}`)
-  }
+  systemPreferences.askForMediaAccess('camera').then((isAllowed) => {
+    if(process.env.WEBPACK_DEV_SERVER_URL) {
+      workerWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL + devPath);
+    } else {
+      workerWin.loadURL(`app://./${prodPath}`)
+    }
+  });
 
   workerWin.on('closed', () => { workerWin = null; });
 }

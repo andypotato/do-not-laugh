@@ -29,7 +29,15 @@ module.exports = {
             target: 'appimage',
             arch: ['armv7l']
           }
-        }
+        },
+        mac: {
+          hardenedRuntime: false,
+          entitlements: './entitlements.mac.plist',
+          extendInfo: {
+            "NSCameraUsageDescription": "Please allow access to your camera",
+            "NSMicrophoneUsageDescription": "Please allow access to your microphone",
+          }
+        },
       }
     }
   }
