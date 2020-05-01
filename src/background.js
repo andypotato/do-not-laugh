@@ -43,15 +43,12 @@ function createWindow () {
     }
   });
 
-  // @see https://github.com/electron/electron/issues/19307
-  systemPreferences.askForMediaAccess('camera').then((isAllowed) => {
-    if(process.env.WEBPACK_DEV_SERVER_URL) {
-      win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    } else {
-      createProtocol('app');
-      win.loadURL('app://./index.html');
-    }
-  });
+  if(process.env.WEBPACK_DEV_SERVER_URL) {
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+  } else {
+    createProtocol('app');
+    win.loadURL('app://./index.html');
+  }
 
   win.on('closed', () => {
     // closing the main (visible) window should quit the App
@@ -63,17 +60,15 @@ function createWorker(devPath, prodPath) {
 
   // create hidden worker window
   workerWin = new BrowserWindow({
-    show: false,
+    show: true,
     webPreferences: { nodeIntegration: true }
   });
 
-  systemPreferences.askForMediaAccess('camera').then((isAllowed) => {
-    if(process.env.WEBPACK_DEV_SERVER_URL) {
-      workerWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL + devPath);
-    } else {
-      workerWin.loadURL(`app://./${prodPath}`)
-    }
-  });
+  if(process.env.WEBPACK_DEV_SERVER_URL) {
+    workerWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL + devPath);
+  } else {
+    workerWin.loadURL(`app://./${prodPath}`)
+  }
 
   workerWin.on('closed', () => { workerWin = null; });
 }
@@ -121,6 +116,18 @@ app.on('ready', async () => {
   if(!createdAppProtocol) {
     createProtocol('app');
     createdAppProtocol = true;
+  }
+
+  // ask for camera permissions on OSX
+  if(process.platform === 'darwin') {
+    systemPreferences.askForMediaAccess('camera')
+    .then((isAllowed) => {
+      console.log("Camera access was", isAllowed ? "granted" : "not granted");
+    })
+    .catch(error => {
+      console.log("Error asking for camera access");
+      console.log(error);
+    });
   }
 
   // create the main application window

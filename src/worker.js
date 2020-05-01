@@ -4,8 +4,8 @@ const ipcRenderer = electron.ipcRenderer;
 import * as faceapi from 'face-api.js';
 
 // init detection options
-let minConfidenceFace = 0.5;
-let faceapiOptions = new faceapi.SsdMobilenetv1Options({ minConfidenceFace });
+const minConfidenceFace = 0.5;
+const faceapiOptions = new faceapi.SsdMobilenetv1Options({ minConfidenceFace });
 
 // cam reference
 let cam;
@@ -23,20 +23,18 @@ faceapi.env.monkeyPatch({
   createImageElement: () => document.createElement('img')
 });
 
-let loadNet = async () => {
+const loadNet = async () => {
 
-  let detectionNet = faceapi.nets.ssdMobilenetv1;
+  const detectionNet = faceapi.nets.ssdMobilenetv1;
   await detectionNet.load('/data/weights');
   await faceapi.loadFaceExpressionModel('/data/weights');
-
-  return detectionNet;
 };
 
-let initCamera = async (width, height) => {
+const initCamera = async (width, height) => {
 
-  cam = document.getElementById('cam');
-  cam.width = width;
-  cam.height = height;
+  const video = document.getElementById('cam');
+  video.width = width;
+  video.height = height;
 
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
@@ -46,16 +44,16 @@ let initCamera = async (width, height) => {
       height: height
     }
   });
-  cam.srcObject = stream;
+  video.srcObject = stream;
 
   return new Promise((resolve) => {
-    cam.onloadedmetadata = () => {
-      resolve(cam);
+    video.onloadedmetadata = () => {
+      resolve(video);
     };
   });
 };
 
-let detectExpressions = async () => {
+const detectExpressions = async () => {
 
   // detect expression
   let result = await faceapi.detectSingleFace(cam, faceapiOptions)
@@ -108,11 +106,12 @@ let notifyRenderer = (command, payload) => {
 }
 
 loadNet()
-.then(net => {
+.then(_ => {
   console.log('Network has loaded');
   return initCamera(640, 480);
 })
 .then(video => {
   console.log('Camera was initialized');
+  cam = video;
   detectExpressions();
 });
