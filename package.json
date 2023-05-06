@@ -28,9 +28,9 @@
     "tfjs-image-recognition-base/@tensorflow/tfjs-core": "<=1.2.9"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^5.0.8",
     "babel-eslint": "^10.0.3",
     "electron": "^5.0.10",
     "eslint": "^5.16.0",
